@@ -1,12 +1,14 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
 });
 
 const eslintConfig = [
@@ -18,7 +20,7 @@ const eslintConfig = [
       "plugin:@typescript-eslint/recommended",
       "plugin:@typescript-eslint/recommended-type-checked",
       "plugin:@typescript-eslint/strict-type-checked",
-      "plugin@typescript-eslint/stylistic-type-checked",
+      "plugin:@typescript-eslint/stylistic-type-checked",
     ],
     plugins: ["simple-import-sort", "import"],
     parserOptions: {
@@ -32,7 +34,6 @@ const eslintConfig = [
       "import/no-duplicates": "error",
     },
   }),
-  plugins,
 ];
 
 export default eslintConfig;
