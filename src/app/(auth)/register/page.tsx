@@ -17,11 +17,14 @@ export default function Page() {
         <p>Create an account to gete started</p>
       </section>
       <form action={formAction} className="space-y-2">
-        <Input name="name" placeholder="Name" />
-        <Input name="email" placeholder="Email" />
-        <Input name="password" placeholder="Password" type="password" />
+        <Input name="name" placeholder="Name" defaultValue={state?.data?.name} />
+        <Input name="email" placeholder="Email" defaultValue={state?.data?.email} />
+        <Input name="password" placeholder="Password" type="password" defaultValue={state?.data?.password} />
         <Button disabled={pending}>Register</Button>
         {state?.status === "success" ? <div>{state.message}</div> : null}
+        {state?.status === "error" && state.errors?.name ? <div className="msg msg-error">{state.errors.name}</div> : null}
+        {state?.status === "error" && state.errors?.email ? <div className="msg msg-error">{state.errors.email}</div> : null}
+        {state?.status === "error" && state.errors?.password ? <div className="msg msg-error">{state.errors.password}</div> : null}
       </form>
       <section>
         <p>
