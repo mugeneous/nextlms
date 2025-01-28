@@ -1,9 +1,11 @@
 "use server";
 
-import z from "zod";
 import bcrypt from "bcrypt"
+import z from "zod";
 
 import { UserServices } from "@/services/user.services";
+import { generateVerificationCode } from "@/libs/generate-verification-code";
+import { EmailServices } from "@/services/email.services";
 
 const registerSchema = z.object({
   name: z.string().min(4),
@@ -32,7 +34,11 @@ export async function registerAction(prevState: unknown, formData: FormData) {
 
   try {
     const hashPassword = await bcrypt.hash(password, 13)
-    await UserServices.createUser({ name, email, password: hashPassword });
+    const user = await UserServices.createUser({ name, email, password: hashPassword });
+    const verificationCode = generateVerificationCode()
+
+    await UserServices.CreateVerificationCode(user.id, verificationCode)
+    await EmailServices.sendVerificationCode(user.id, verificationCode)
 
     return {
       status: "success",

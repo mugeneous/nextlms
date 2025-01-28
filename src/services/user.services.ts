@@ -13,4 +13,27 @@ export const UserServices = {
     });
     return newUser;
   },
+  findUser: async (idOrEmail: string) => {
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          {
+            id: idOrEmail
+          },
+          {
+            email: idOrEmail
+          }
+        ]
+      }
+    })
+    return user
+  },
+  CreateVerificationCode: async(userId: string, code: string) => {
+    await prisma.verificationCode.create({
+      data: {
+        userId,
+        code
+      }
+    })
+  }
 };
