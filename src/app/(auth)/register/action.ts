@@ -1,6 +1,7 @@
 "use server";
 
 import z from "zod";
+import bcrypt from "bcrypt"
 
 import { UserServices } from "@/services/user.services";
 
@@ -30,7 +31,8 @@ export async function registerAction(prevState: unknown, formData: FormData) {
   }
 
   try {
-    await UserServices.createUser({ name, email, password });
+    const hashPassword = await bcrypt.hash(password, 13)
+    await UserServices.createUser({ name, email, password: hashPassword });
 
     return {
       status: "success",
@@ -43,9 +45,4 @@ export async function registerAction(prevState: unknown, formData: FormData) {
       message: "Register error!",
     };
   }
-
-  return {
-    status: "success",
-    message: "Register success!",
-  };
 }

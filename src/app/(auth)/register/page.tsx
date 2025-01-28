@@ -21,7 +21,7 @@ export default function Page() {
         <Input name="email" placeholder="Email" defaultValue={state?.data?.email} />
         <Input name="password" placeholder="Password" type="password" defaultValue={state?.data?.password} />
         <Button disabled={pending}>Register</Button>
-        {state?.status === "success" ? <div>{state.message}</div> : null}
+        {state?.status === "success" ? <div className="msg msg-success">{state.message}</div> : null}
         {state?.status === "error" && state.errors?.name ? <div className="msg msg-error">{state.errors.name}</div> : null}
         {state?.status === "error" && state.errors?.email ? <div className="msg msg-error">{state.errors.email}</div> : null}
         {state?.status === "error" && state.errors?.password ? <div className="msg msg-error">{state.errors.password}</div> : null}
