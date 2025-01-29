@@ -3,9 +3,9 @@
 import bcrypt from "bcrypt"
 import z from "zod";
 
-import { UserServices } from "@/services/user.services";
 import { generateVerificationCode } from "@/libs/generate-verification-code";
 import { EmailServices } from "@/services/email.services";
+import { UserServices } from "@/services/user.services";
 
 const registerSchema = z.object({
   name: z.string().min(4),

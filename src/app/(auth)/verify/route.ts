@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { Prisma } from "@prisma/client";
+
 import { prisma } from "@/utils/prisma";
 
 export async function GET(req: NextRequest) {
@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         })
     }
 
-    const unverifiedUser = prisma.user.findFirst({
+    const unverifiedUser = await prisma.user.findFirst({
         where: {
             AND: [
                 {
