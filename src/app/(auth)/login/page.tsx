@@ -24,7 +24,7 @@ export default function Page() {
         {state?.status === "error" && state.errors?.email ? <div className="msg msg-error">{state.errors.email}</div> : null}
         {state?.status === "error" && state.errors?.password ? <div className="msg msg-error">{state.errors.password}</div> : null}
         {state?.status === "success" && state.message !== "" ? <div className="msg msg-success">{state.message}</div> : null}
-        {state?.status === "error" && state.message !== "" ? <div className="msg msg-error">{state.message}</div> : null}
+        {state?.status === "error" && state.message !== undefined ? <div className="msg msg-error">{state.message}</div> : null}
       </form>
       <SocialLoginBtn />
       <section>
