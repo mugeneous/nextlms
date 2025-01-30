@@ -1,6 +1,6 @@
 "use server";
 
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import z from "zod";
 
 import { generateVerificationCode } from "@/libs/generate-verification-code";
@@ -33,12 +33,12 @@ export async function registerAction(prevState: unknown, formData: FormData) {
   }
 
   try {
-    const hashPassword = await bcrypt.hash(password, 13)
-    const user = await UserServices.createUser({ name, email, password: hashPassword });
-    const verificationCode = generateVerificationCode()
+    const hashPassword = await bcrypt.hash(password, 13);
+    const user = await UserServices.createUser({ name, email, password: hashPassword, isVerified: false });
+    const verificationCode = generateVerificationCode();
 
-    await UserServices.CreateVerificationCode(user.id, verificationCode)
-    await EmailServices.sendVerificationCode(user.id, verificationCode)
+    await UserServices.CreateVerificationCode(user.id, verificationCode);
+    await EmailServices.sendVerificationCode(user.id, verificationCode);
 
     return {
       status: "success",
