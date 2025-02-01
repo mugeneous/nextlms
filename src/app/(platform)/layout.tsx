@@ -18,11 +18,11 @@ export default function Layout({ children }: React.PropsWithChildren) {
           <Menu label="Analytics" href="/admin/analytics" />
           <Menu label="Flash sale" href="/admin/flash-sale" />
           <Menu label="Courses" href="/admin/courses" />
-          <Menu label="Certificates Approval" href="/admin/certificates" />
+          <Menu label="Certificates Approval" href="/admin/certificates-approvals" />
           <Menu label="Users" href="/admin/users" />
         </section>
       </aside>
-      <main className="h-screen w-[cal(100%-260px)] overflow-y-auto bg-white p-8">{children}</main>
+      <main className="h-screen w-[calc(100%-260px)] overflow-y-auto bg-white p-8">{children}</main>
     </div>
   );
 }

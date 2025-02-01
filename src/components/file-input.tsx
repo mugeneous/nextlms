@@ -25,6 +25,8 @@ export const FileInput = (props: Props) => {
         Choose File
       </button>
       <input
+        {...props}
+        type="file"
         ref={inputRef}
         hidden
         onChange={(e) => {
