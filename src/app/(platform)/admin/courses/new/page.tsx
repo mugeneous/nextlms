@@ -15,7 +15,10 @@ export default function Page() {
   const [preview, setPreview] = useState<string>("");
 
   function handleCreatePreview(event: ChangeEvent<HTMLInputElement>) {
-    if (!event.target.files) return;
+    if (!event.target.files?.length) {
+      setPreview("");
+      return;
+    }
 
     const file = event.target.files[0];
     setPreview(URL.createObjectURL(file));
@@ -27,17 +30,21 @@ export default function Page() {
         <h3>Create new course</h3>
       </section>
       <section>
-        <form action={formAction}>
+        <form action={formAction} className="space-y-2">
           {preview && <Image src={preview} width={800} height={300} alt="Course cover" className="rounded-lg" />}
           <FileInput name="coverImage" placeholder="Choose the course cover" onChange={handleCreatePreview} />
-          <Input name="title" placeholder="Course title" />
-          <TextArea name="description" placeholder="Course description" />
-          <Input name="price" placeholder="Course price" />
+          <Input name="title" placeholder="Course title" defaultValue={state?.data?.title} />
+          <TextArea name="description" placeholder="Course description" defaultValue={state?.data?.description} />
+          <Input name="price" placeholder="Course price" defaultValue={state?.data?.price} />
           <Button disabled={pending}>Save Draft</Button>
           {state?.errors?.title && <div className="msg msg-error">{state.errors.title}</div>}
           {state?.errors?.description && <div className="msg msg-error">{state.errors.description}</div>}
           {state?.errors?.price && <div className="msg msg-error">{state.errors.price}</div>}
-          {state?.errors?.coverImage && <div className="msg msg-error">{state.errors.coverImage}</div>}
+          {state?.errors?.coverImage?.map((e, i) => (
+            <div key={i} className="msg msg-error">
+              {e}
+            </div>
+          ))}
           {state?.status === "error" && state.message && <div className="msg msg-error">{state.message}</div>}
         </form>
       </section>

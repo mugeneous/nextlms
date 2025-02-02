@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.740.0",
     "@prisma/client": "^6.2.1",
     "arctic": "^3.2.1",
     "bcrypt": "^5.1.1",
