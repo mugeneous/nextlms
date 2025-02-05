@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 import { Menu } from "@/components/menu";
@@ -17,7 +18,9 @@ export default function Layout({ children }: React.PropsWithChildren) {
           <h5 className="ml-3 text-xs font-medium text-slate-500">Admin Menu</h5>
           <Menu label="Analytics" href="/admin/analytics" />
           <Menu label="Flash sale" href="/admin/flash-sale" />
-          <Menu label="Courses" href="/admin/courses" />
+          <Link href="/admin/courses">
+            <Menu label="Courses" href="/admin/courses" />
+          </Link>
           <Menu label="Certificates Approval" href="/admin/certificates-approvals" />
           <Menu label="Users" href="/admin/users" />
         </section>
