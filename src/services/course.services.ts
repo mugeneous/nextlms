@@ -21,4 +21,44 @@ export const CourseServices = {
       console.log(error);
     }
   },
+  createSection: async (courseId: string) => {
+    await prisma.section.create({
+      data: {
+        title: "New Section",
+        courseId,
+      },
+    });
+  },
+  getAllCourses: async () => {
+    const courses = await prisma.course.findMany({
+      orderBy: {
+        title: "asc",
+      },
+    });
+
+    return courses;
+  },
+  getCourseDetail: async (idOrslug: string) => {
+    const course = prisma.course.findFirst({
+      where: {
+        OR: [
+          {
+            id: idOrslug,
+          },
+          {
+            slug: idOrslug,
+          },
+        ],
+      },
+      include: {
+        sections: {
+          include: {
+            lessons: true,
+          },
+        },
+      },
+    });
+
+    return course;
+  },
 };
