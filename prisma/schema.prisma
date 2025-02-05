@@ -7,61 +7,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model User {
-  id String @id @default(cuid())
-  name String
-  email String
-  phoneNumber String?
-  password String?
-  avatarUrl String?
-  isVerified Boolean @default(false)
-  onBanned Boolean @default(false)
-  role Role @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String            @id @default(cuid())
+  name             String
+  email            String
+  phoneNumber      String?
+  password         String?
+  avatarUrl        String?
+  isVerified       Boolean           @default(false)
+  onBanned         Boolean           @default(false)
+  role             Role              @default(USER)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
   verificationCode VerificationCode?
 }
 
 model VerificationCode {
-  id String @id @default(cuid())
-  code String
-  userId String @unique
-  user User @relation(fields: [userId], references: [id])
+  id        String   @id @default(cuid())
+  code      String
+  userId    String   @unique
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Course {
-  id String @id @default(cuid())
-  title String
-  slug String
+  id          String  @id @default(cuid())
+  title       String
+  slug        String
   description String
-  price Int
-  coverImage String
-  isPublished Boolean @default(false)
-  sections Section[]
+  price       Int
+  coverImage  String
+  isPublished Boolean  @default(false)
+  sections    Section[]
 }
 
 model Section {
-  id String @id @default(cuid())
-  title String
-  index Int @default(0)
-  courseId String @unique
-  course Course @relation(fields: [courseId], references: [id])
-  lessons Lesson[]
+  id       String  @id @default(cuid())
+  title    String
+  index    Int     @default(0)
+  courseId String 
+  lessons  Lesson[]
+  course   Course  @relation(fields: [courseId], references: [id])
 }
 
 model Lesson {
-  id String @default(cuid())
-  title String
-  slug String
-  videoUrl String
-  index Int @default(0)
+  id        String @id @default(cuid())
+  title     String
+  slug      String
+  videoUrl  String
+  index     Int     @default(0)
   isPreview Boolean @default(false)
-  sectionId String @unique
-  section Section @relation(fields: [sectionId], references: [id])
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
 }
