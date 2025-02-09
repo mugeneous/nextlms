@@ -4,10 +4,10 @@ import { revalidatePath } from "next/cache";
 
 import { CourseServices } from "@/services/course.services";
 
-export default async function AddSectionAction(formData: FormData) {
-  const courseId = formData.get("courseId") as string;
+export default async function AddLessonAction(formData: FormData) {
+  const sectionId = formData.get("sectionId") as string;
 
-  await CourseServices.createSection(courseId);
+  await CourseServices.createLesson(sectionId);
 
   revalidatePath("/admin/courses/[slug]", "page");
 }

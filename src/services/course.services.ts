@@ -29,6 +29,44 @@ export const CourseServices = {
       },
     });
   },
+  createLesson: async (sectionId: string) => {
+    try {
+      console.log(sectionId);
+      const totalLesson = await prisma.lesson.count({
+        where: {
+          sectionId: sectionId,
+        },
+      });
+
+      const slug = `New lesson ${(totalLesson + 1).toString()}`
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]+/g, "")
+        .replace(/--+/g, "-");
+
+      // const cek = {
+      //   sectionId: sectionId,
+      //   title: `New lesson ${(totalLesson + 1).toString()}`,
+      //   slug: slug,
+      //   videoUrl: "-",
+      //   index: totalLesson,
+      // };
+
+      // console.log({ cek });
+      await prisma.lesson.create({
+        data: {
+          sectionId: sectionId,
+          title: `New lesson ${(totalLesson + 1).toString()}`,
+          slug: slug,
+          videoUrl: "-",
+          index: totalLesson,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
   getAllCourses: async () => {
     const courses = await prisma.course.findMany({
       orderBy: {

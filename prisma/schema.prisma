@@ -46,8 +46,8 @@ model Section {
   title    String
   index    Int     @default(0)
   courseId String 
-  lessons  Lesson[]
   course   Course  @relation(fields: [courseId], references: [id])
+  lessons  Lesson[]
 }
 
 model Lesson {
