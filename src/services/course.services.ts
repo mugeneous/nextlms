@@ -99,4 +99,15 @@ export const CourseServices = {
 
     return course;
   },
+  deleteLesson: async (lessonId: string) => {
+    try {
+      await prisma.lesson.delete({
+        where: {
+          id: lessonId,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
