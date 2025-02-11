@@ -1,15 +1,23 @@
+"use client";
+
 import { Lesson } from "@prisma/client";
+import { useSetAtom } from "jotai";
 
 import { Button } from "@/components/button";
 import { Card } from "@/components/card";
+import { isLessonEditModalOpenAtom, lessonDetailAtom } from "@/context/atom";
 
 import DeleteLessonAction from "./action.delete-lesson";
+import LessonEditForm from "./comp.edit-lesson";
 
 interface Props {
   lesson: Lesson;
 }
 
 export const SectionLesson = ({ lesson }: Props) => {
+  const openModal = useSetAtom(isLessonEditModalOpenAtom);
+  const lessonDetail = useSetAtom(lessonDetailAtom);
+
   return (
     <Card className="p-2">
       <section className="flex items-center justify-between">
@@ -26,7 +34,15 @@ export const SectionLesson = ({ lesson }: Props) => {
           <div>{lesson.title}</div>
         </div>
         <div className="flex gap-2">
-          <Button size="sm" variant="secondary" className="w-fit">
+          <Button
+            onClick={() => {
+              openModal(true);
+              lessonDetail(lesson);
+            }}
+            size="sm"
+            variant="secondary"
+            className="w-fit"
+          >
             Edit
           </Button>
           <form action={DeleteLessonAction}>
@@ -37,6 +53,7 @@ export const SectionLesson = ({ lesson }: Props) => {
           </form>
         </div>
       </section>
+      <LessonEditForm />
     </Card>
   );
 };

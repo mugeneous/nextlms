@@ -1,4 +1,4 @@
-import { Course } from "@prisma/client";
+import { Course, Lesson } from "@prisma/client";
 
 import { prisma } from "@/utils/prisma";
 
@@ -45,15 +45,6 @@ export const CourseServices = {
         .replace(/[^\w-]+/g, "")
         .replace(/--+/g, "-");
 
-      // const cek = {
-      //   sectionId: sectionId,
-      //   title: `New lesson ${(totalLesson + 1).toString()}`,
-      //   slug: slug,
-      //   videoUrl: "-",
-      //   index: totalLesson,
-      // };
-
-      // console.log({ cek });
       await prisma.lesson.create({
         data: {
           sectionId: sectionId,
@@ -98,6 +89,26 @@ export const CourseServices = {
     });
 
     return course;
+  },
+  updateLesson: async (lesson: Pick<Lesson, "id" | "title" | "videoUrl">) => {
+    const slug = lesson.title
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-");
+
+    await prisma.lesson.update({
+      where: {
+        id: lesson.id,
+      },
+      data: {
+        id: lesson.id,
+        title: lesson.title,
+        slug: slug,
+        videoUrl: lesson.videoUrl,
+      },
+    });
   },
   deleteLesson: async (lessonId: string) => {
     try {
