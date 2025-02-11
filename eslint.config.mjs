@@ -32,12 +32,14 @@ const eslintConfig = [
       "import/first": "error",
       "import/newline-after-import": "error",
       "import/no-duplicates": "error",
-      "@typescript-eslint/no-unused-vars": ["error", 
+      "@typescript-eslint/no-confusing-void-expression": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
         {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_"
-        }
-      ]
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
     },
   }),
 ];
