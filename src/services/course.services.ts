@@ -1,5 +1,6 @@
 import { Course, Lesson } from "@prisma/client";
 
+import generateSlug from "@/libs/generate-slug";
 import { prisma } from "@/utils/prisma";
 
 export const CourseServices = {
@@ -38,12 +39,7 @@ export const CourseServices = {
         },
       });
 
-      const slug = `New lesson ${(totalLesson + 1).toString()}`
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w-]+/g, "")
-        .replace(/--+/g, "-");
+      const slug = generateSlug(`New lesson ${(totalLesson + 1).toString()}`);
 
       await prisma.lesson.create({
         data: {
@@ -91,12 +87,7 @@ export const CourseServices = {
     return course;
   },
   updateLesson: async (lesson: Pick<Lesson, "id" | "title" | "videoUrl">) => {
-    const slug = lesson.title
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]+/g, "")
-      .replace(/--+/g, "-");
+    const slug = generateSlug(lesson.title);
 
     await prisma.lesson.update({
       where: {
