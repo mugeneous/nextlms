@@ -1,4 +1,4 @@
-import { Course, Lesson } from "@prisma/client";
+import { Course, Lesson, Section } from "@prisma/client";
 
 import generateSlug from "@/libs/generate-slug";
 import { prisma } from "@/utils/prisma";
@@ -89,6 +89,16 @@ export const CourseServices = {
     });
 
     return course;
+  },
+  updateSection: async (section: Pick<Section, "id" | "title">) => {
+    await prisma.section.update({
+      where: {
+        id: section.id,
+      },
+      data: {
+        title: section.title,
+      },
+    });
   },
   updateLesson: async (lesson: Pick<Lesson, "id" | "title" | "videoUrl">) => {
     const slug = generateSlug(lesson.title);
