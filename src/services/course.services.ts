@@ -78,7 +78,11 @@ export const CourseServices = {
       include: {
         sections: {
           include: {
-            lessons: true,
+            lessons: {
+              orderBy: {
+                index: "asc",
+              },
+            },
           },
         },
       },
@@ -98,6 +102,13 @@ export const CourseServices = {
         title: lesson.title,
         slug: slug,
         videoUrl: lesson.videoUrl,
+      },
+    });
+  },
+  deleteSection: async (sectionId: string) => {
+    await prisma.section.delete({
+      where: {
+        id: sectionId,
       },
     });
   },

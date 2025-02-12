@@ -3,6 +3,7 @@ import { Lesson, Section } from "@prisma/client";
 import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 
+import DeleteSectionAction from "./action.delete-section";
 import { AddLessonBtn } from "./comp.add-lesson";
 import { SectionLesson } from "./comp.section-lesson";
 
@@ -30,9 +31,12 @@ export const SectionCard = ({ section }: Props) => {
           <Button size="sm" variant="secondary" className="w-fit">
             Edit
           </Button>
-          <Button size="sm" variant="secondary" className="w-fit">
-            Delete
-          </Button>
+          <form action={DeleteSectionAction}>
+            <input type="hidden" name="sectionId" defaultValue={section.id} />
+            <Button disabled={section.lessons.length > 0} size="sm" variant="secondary" className="w-fit">
+              Delete
+            </Button>
+          </form>
           <AddLessonBtn id={section.id} />
         </div>
       </section>
