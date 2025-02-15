@@ -4,7 +4,7 @@ import { Button } from "@/components/button";
 import { CourseServices } from "@/services/course.services";
 
 import { AddSectionBtn } from "./comp.add-section";
-import { SectionCard } from "./comp.section-card";
+import Sections from "./comp.section-dnd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -29,11 +29,7 @@ export default async function Page({ params }: Props) {
       </section>
       <section className="space-y-2">
         <AddSectionBtn courseId={course.id} />
-        <section className="space-y-2">
-          {course.sections.map((section) => {
-            return <SectionCard key={section.id} section={section} />;
-          })}
-        </section>
+        <Sections course={course} />
       </section>
     </main>
   );

@@ -32,7 +32,7 @@ export const CourseServices = {
     await prisma.section.create({
       data: {
         title: `New Section ${(totalSections + 1).toString()}`,
-        index: totalSections + 1,
+        index: totalSections,
         courseId,
       },
     });
