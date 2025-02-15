@@ -23,9 +23,16 @@ export const CourseServices = {
     }
   },
   createSection: async (courseId: string) => {
+    const totalSections = await prisma.section.count({
+      where: {
+        courseId,
+      },
+    });
+
     await prisma.section.create({
       data: {
-        title: "New Section",
+        title: `New Section ${(totalSections + 1).toString()}`,
+        index: totalSections + 1,
         courseId,
       },
     });
@@ -83,6 +90,9 @@ export const CourseServices = {
                 index: "asc",
               },
             },
+          },
+          orderBy: {
+            index: "asc",
           },
         },
       },
