@@ -11,7 +11,7 @@ import { isSectionEditModalOpenAtom, sectionDetailAtom } from "@/context/atom";
 import DeleteSectionAction from "./action.delete-section";
 import { AddLessonBtn } from "./comp.add-lesson";
 import SectionEditForm from "./comp.edit-section";
-import { SectionLesson } from "./comp.section-lesson";
+import Lessons from "./comp.lesson-dnd";
 
 interface Props {
   section: Section & { lessons: Lesson[] };
@@ -63,11 +63,7 @@ export const SectionCard = ({ section, index }: Props) => {
                 <AddLessonBtn id={section.id} />
               </div>
             </section>
-            <section className="space-y-2 bg-slate-50 p-2">
-              {section.lessons.map((lesson) => {
-                return <SectionLesson key={lesson.id} lesson={lesson} />;
-              })}
-            </section>
+            <Lessons section={section} />
             <SectionEditForm />
           </Card>
         );
