@@ -22,10 +22,12 @@ export default function Layout({ children }: React.PropsWithChildren) {
             <Menu label="Courses" href="/admin/courses" />
           </Link>
           <Menu label="Certificates Approval" href="/admin/certificates-approvals" />
-          <Menu label="Users" href="/admin/users" />
+          <Link href="/admin/users">
+            <Menu label="Users" href="/admin/users" />
+          </Link>
         </section>
       </aside>
-      <main className="h-screen w-[calc(100%-260px)] overflow-y-auto bg-white p-8">{children}</main>
+      <main className="h-screen w-[calc(100%-260px)] overflow-y-auto bg-white">{children}</main>
     </div>
   );
 }

@@ -37,4 +37,29 @@ export const UserServices = {
       },
     });
   },
+  getAllUsers: async () => {
+    const users = await prisma.user.findMany();
+
+    return users;
+  },
+  banUser: async (userId: string) => {
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        onBanned: true,
+      },
+    });
+  },
+  unBanUser: async (userId: string) => {
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        onBanned: false,
+      },
+    });
+  },
 };
