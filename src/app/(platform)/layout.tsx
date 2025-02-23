@@ -17,7 +17,9 @@ export default function Layout({ children }: React.PropsWithChildren) {
         <section>
           <h5 className="ml-3 text-xs font-medium text-slate-500">Admin Menu</h5>
           <Menu label="Analytics" href="/admin/analytics" />
-          <Menu label="Flash sale" href="/admin/flash-sale" />
+          <Link href="/admin/flash-sale">
+            <Menu label="Flash sale" href="/admin/flash-sale" />
+          </Link>
           <Link href="/admin/courses">
             <Menu label="Courses" href="/admin/courses" />
           </Link>
