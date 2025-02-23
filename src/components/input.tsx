@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { twMerge } from "tailwind-merge";
 import { tv, type VariantProps } from "tailwind-variants";
 
@@ -9,7 +10,16 @@ const style = tv({
 
 type TInput = VariantProps<typeof style>;
 interface Props extends TInput, React.ComponentPropsWithRef<"input"> {}
+interface SelectProps extends TInput, React.ComponentPropsWithRef<"select"> {}
 
 export const Input = (props: Props) => {
   return <input {...props} className={twMerge(style({ ...props }), props.className)} />;
+};
+
+export const Select = (props: SelectProps) => {
+  return (
+    <select {...props} className={twMerge(style({ ...props }), props.className)}>
+      {props.children}
+    </select>
+  );
 };
