@@ -5,6 +5,7 @@ import { currencyFormat } from "@/libs/currencyFormat";
 import { CourseServices } from "@/services/course.services";
 import { FlashSaleServices } from "@/services/flashsale.services";
 
+import DeleteFlashSaleAction from "./action.delete-sale";
 import { SaleForm } from "./comp.sale-form";
 
 export default async function Page() {
@@ -30,9 +31,12 @@ export default async function Page() {
             <div className="space-y-2">
               <h4>{flashSale.course.title}</h4>
               <p>{currencyFormat(flashSale.newAmount)}</p>
-              <Button variant="danger" size="sm">
-                Delete sale
-              </Button>
+              <form action={DeleteFlashSaleAction}>
+                <input type="hidden" name="saleId" defaultValue={flashSale.id} />
+                <Button variant="danger" size="sm">
+                  Delete sale
+                </Button>
+              </form>
             </div>
           </section>
         );

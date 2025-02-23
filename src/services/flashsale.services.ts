@@ -18,4 +18,11 @@ export const FlashSaleServices = {
 
     return flashSales;
   },
+  deleteFlashSale: async (saleId: string) => {
+    await prisma.flashSale.delete({
+      where: {
+        id: saleId,
+      },
+    });
+  },
 };
