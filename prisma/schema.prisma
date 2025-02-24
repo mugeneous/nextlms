@@ -20,6 +20,7 @@ model User {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   verificationCode VerificationCode?
+  certificates Certificate[]
 }
 
 model VerificationCode {
@@ -40,6 +41,7 @@ model Course {
   isPublished Boolean  @default(false)
   sections    Section[]
   flashSales FlashSale?
+  certificates Certificate[]
 }
 
 model Section {
@@ -74,3 +76,18 @@ enum Role {
   ADMIN
 }
 
+
+enum RequestStatus {
+  UNDER_REVIEW
+  APPROVED
+  NO_REQUEST
+}
+
+model Certificate {
+  id String @id @default(cuid())
+  courseId String
+  course Course @relation(fields: [courseId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  status RequestStatus @default(NO_REQUEST) 
+}
