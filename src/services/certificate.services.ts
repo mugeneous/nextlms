@@ -11,4 +11,14 @@ export const CertificateServices = {
 
     return Certificates;
   },
+  approveCertificate: async (certificateId: string) => {
+    await prisma.certificate.update({
+      where: {
+        id: certificateId,
+      },
+      data: {
+        status: "APPROVED",
+      },
+    });
+  },
 };

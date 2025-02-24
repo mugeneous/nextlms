@@ -1,6 +1,8 @@
 import { Button } from "@/components/button";
 import { CertificateServices } from "@/services/certificate.services";
 
+import ApproveCertificateAction from "./action";
+
 export default async function Page() {
   const certificates = await CertificateServices.getAll();
 
@@ -27,9 +29,12 @@ export default async function Page() {
                   <td>{cert.user.name}</td>
                   <td>{cert.status}</td>
                   <td>
-                    <Button size="sm" className="w-fit">
-                      Approve
-                    </Button>
+                    <form action={ApproveCertificateAction}>
+                      <input type="hidden" name="certificateId" defaultValue={cert.id} />
+                      <Button size="sm" className="w-fit">
+                        Approve
+                      </Button>
+                    </form>
                   </td>
                 </tr>
               );
