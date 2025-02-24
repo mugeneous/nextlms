@@ -23,7 +23,9 @@ export default function Layout({ children }: React.PropsWithChildren) {
           <Link href="/admin/courses">
             <Menu label="Courses" href="/admin/courses" />
           </Link>
-          <Menu label="Certificates Approval" href="/admin/certificates-approvals" />
+          <Link href="/admin/certificates-approval">
+            <Menu label="Certificates Approval" href="/admin/certificates-approvals" />
+          </Link>
           <Link href="/admin/users">
             <Menu label="Users" href="/admin/users" />
           </Link>
