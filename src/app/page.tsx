@@ -1,67 +1,66 @@
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
-        <Image className="dark:invert" src="/next.svg" alt="Next.js logo" width={180} height={38} priority />
-        <ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="rounded bg-black/[.05] px-1 py-0.5 font-semibold dark:bg-white/[.06]">src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+import { Button } from "@/components/button";
+import { Footer } from "@/components/shared/footer";
+import { Header } from "@/components/shared/header";
+import { currencyFormat } from "@/libs/currencyFormat";
+import { CourseServices } from "@/services/course.services";
 
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            className="flex h-10 items-center justify-center gap-2 rounded-full border border-solid border-transparent bg-foreground px-4 text-sm text-background transition-colors hover:bg-[#383838] sm:h-12 sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image className="dark:invert" src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
-            Deploy now
-          </a>
-          <a
-            className="flex h-10 items-center justify-center rounded-full border border-solid border-black/[.08] px-4 text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:min-w-44 sm:px-5 sm:text-base dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default async function Home() {
+  const courses = await CourseServices.getAllCourses();
+
+  return (
+    <main className="flex min-h-screen flex-col justify-between">
+      <Header />
+      <section className="flex min-h-96 flex-col items-center justify-center space-y-32 py-32">
+        <div className="max-w-4xl space-y-4 text-center">
+          <h1 className="text-balance">Make knowledge investment for your future</h1>
+          <h3 className="text-slate-500">Start learning with nextlms.</h3>
         </div>
-      </main>
-      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="m-w-4xl m-auto grid grid-cols-6 items-center gap-12">
+          <Image src="/logo/google.svg" alt="google logo" height={100} width={100} />
+          <Image src="/logo/asana.png" alt="asana logo" height={100} width={100} />
+          <Image src="/logo/meta.svg" alt="meta logo" height={100} width={100} />
+          <Image src="/logo/netflix.svg" alt="netflix logo" height={100} width={100} />
+          <Image src="/logo/linkedin.png" alt="linkedin logo" height={100} width={100} />
+          <Image src="/logo/spotify.png" alt="spotify logo" height={100} width={100} />
+        </div>
+      </section>
+      <section className="mx-32 space-y-12 rounded-2xl bg-indigo-600 p-24 text-white">
+        <div className="m-auto max-w-2xl space-y-6 text-balance text-center">
+          <h2>Learning in better way, with our courses could boost your skillset</h2>
+          <h4>Nextlms. is a platform where you can learning anything!</h4>
+        </div>
+        <div className="grid grid-cols-3 gap-10">
+          {courses.map((course) => {
+            return (
+              <section key={course.id} className="relative space-y-4">
+                <h4>{course.title}</h4>
+                <div className="overflow-hidden rounded-xl bg-white">
+                  <Image
+                    src={`${process.env.R2_PUBLIC_URL}/nextlms/courses/${course.id}/${course.coverImage}`}
+                    alt={course.title}
+                    width={1000}
+                    height={500}
+                  />
+                </div>
+                {course.flashSales?.id && (
+                  <div className="absolute right-4 top-4 z-10 rounded-lg bg-slate-950 px-4 py-2 font-bold text-white">Flash Sale!</div>
+                )}
+                <div className="grid grid-cols-3 gap-2">
+                  <Button className="col-span-2 shadow-gray-600" size="sm" variant="secondary">
+                    Buy {course.flashSales?.id ? currencyFormat(course.flashSales.newAmount) : currencyFormat(course.price)}
+                  </Button>
+                  <Button className="shadow-gray-600" size="sm" variant="secondary">
+                    View
+                  </Button>
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      </section>
+      <Footer />
+    </main>
   );
 }
