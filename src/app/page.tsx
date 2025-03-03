@@ -5,6 +5,7 @@ import { Footer } from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
 import { currencyFormat } from "@/libs/currencyFormat";
 import { CourseServices } from "@/services/course.services";
+import Link from "next/link";
 
 export default async function Home() {
   const courses = await CourseServices.getAllCourses();
@@ -51,9 +52,11 @@ export default async function Home() {
                   <Button className="col-span-2 shadow-gray-600" size="sm" variant="secondary">
                     Buy {course.flashSales?.id ? currencyFormat(course.flashSales.newAmount) : currencyFormat(course.price)}
                   </Button>
-                  <Button className="shadow-gray-600" size="sm" variant="secondary">
-                    View
-                  </Button>
+                  <Link href={course.slug}>
+                    <Button className="shadow-gray-600" size="sm" variant="secondary">
+                      View
+                    </Button>
+                  </Link>
                 </div>
               </section>
             );
