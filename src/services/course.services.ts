@@ -86,6 +86,7 @@ export const CourseServices = {
         ],
       },
       include: {
+        flashSales: true,
         sections: {
           include: {
             lessons: {
