@@ -22,7 +22,7 @@ export default async function Page() {
           return (
             <div key={course.id} className="relative overflow-hidden rounded-xl border bg-white shadow-sm">
               <Image
-                src={`${process.env.R2_PUBLIC_URL}/nextlms/courses/${course.id}/${course.coverImage}`}
+                src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/nextlms/courses/${course.id}/${course.coverImage}`}
                 className="rounded-lg"
                 alt={course.title}
                 width={1000}

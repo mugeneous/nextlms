@@ -38,7 +38,7 @@ export default async function Home() {
                 <h4>{course.title}</h4>
                 <div className="overflow-hidden rounded-xl bg-white">
                   <Image
-                    src={`${process.env.R2_PUBLIC_URL}/nextlms/courses/${course.id}/${course.coverImage}`}
+                    src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/nextlms/courses/${course.id}/${course.coverImage}`}
                     alt={course.title}
                     width={1000}
                     height={500}
