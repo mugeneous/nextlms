@@ -7,6 +7,8 @@ import { Footer } from "@/components/shared/footer";
 import { Header } from "@/components/shared/header";
 import { CourseServices } from "@/services/course.services";
 
+import BuyCourseAction from "./action";
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -55,7 +57,11 @@ export default async function Page({ params }: Props) {
           />
           <h5>{course.sections.length} Sections</h5>
           <h5>{course.sections.reduce((acc, section) => acc + section.lessons.length, 0)} Lessons</h5>
-          <Button>Buy {course.flashSales ? course.flashSales.newAmount : course.price}</Button>
+          <form action={BuyCourseAction}>
+            <input type="hidden" value={course.id} name="courseId" />
+            <input type="hidden" value={course.flashSales ? course.flashSales.newAmount : course.price} name="amount" />
+            <Button>Buy {course.flashSales ? course.flashSales.newAmount : course.price}</Button>
+          </form>
         </div>
       </section>
       <Footer />

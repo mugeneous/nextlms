@@ -11,6 +11,8 @@ const envSchema = z.object({
   R2_ACCESS_ID: z.string().min(1),
   R2_SECRET_KEY: z.string().min(1),
   R2_S3API_URL: z.string().min(1),
+  MAYAR_API_KEY: z.string().min(1),
+  MAYAR_SANDBOX_API_KEY: z.string().min(1),
 });
 
 const envParse = envSchema.safeParse({
@@ -24,6 +26,8 @@ const envParse = envSchema.safeParse({
   R2_ACCESS_ID: process.env.R2_ACCESS_ID,
   R2_SECRET_KEY: process.env.R2_SECRET_KEY,
   R2_S3API_URL: process.env.R2_S3API_URL,
+  MAYAR_API_KEY: process.env.MAYAR_API_KEY,
+  MAYAR_SANDBOX_API_KEY: process.env.MAYAR_SANDBOX_API_KEY,
 });
 
 if (!envParse.success) {
